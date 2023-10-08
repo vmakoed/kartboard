@@ -1,7 +1,1 @@
-<% if current_user %>
-  Hello, <%= current_user.name %>
-  <br>
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= button_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
-<% end %>
+<%= button_to "New match", matches_path, method: :post %>

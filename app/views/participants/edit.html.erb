@@ -1,0 +1,10 @@
+<%= form_with(model: [@match, @participant], local: true) do |form| %>
+  <div class="field">
+    <%= form.label :position %>
+    <%= form.number_field :position, in: 1..12, step: 1 %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_08_131529) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_08_165054) do
+  create_table "matches", force: :cascade do |t|
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "match_id", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id", "user_id"], name: "index_participants_on_match_id_and_user_id", unique: true
+    t.index ["match_id"], name: "index_participants_on_match_id"
+    t.index ["user_id"], name: "index_participants_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", null: false
     t.string "name", null: false
@@ -20,4 +37,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_08_131529) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "participants", "matches"
+  add_foreign_key "participants", "users"
 end
