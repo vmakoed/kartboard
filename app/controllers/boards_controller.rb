@@ -1,3 +1,3 @@
-class BoardsController < ActionController::Base
+class BoardsController < ApplicationController
   def show; end
 end

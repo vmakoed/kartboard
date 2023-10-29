@@ -36,3 +36,6 @@
 /config/master.key
 .idea
 .ruby-gemset
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

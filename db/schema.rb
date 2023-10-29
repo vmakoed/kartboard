@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_08_165054) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_28_172420) do
   create_table "matches", force: :cascade do |t|
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "code", limit: 6, null: false
+    t.index ["code"], name: "index_matches_on_code", unique: true
   end
 
   create_table "participants", force: :cascade do |t|

@@ -1,1 +1,84 @@
-<%= button_to "New match", matches_path, method: :post %>
+<div class="flex w-screen">
+  <div class="basis-1/2">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+      <tr>
+        <th class="w-20 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Name
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Score
+        </th>
+      </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr>
+          <td class="w-20 px-6 py-4 whitespace-nowrap">
+            1
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            Ove
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            1200
+          </td>
+        </tr>
+        <tr>
+          <td class="w-20 px-6 py-4 whitespace-nowrap">
+            2
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            Viktar
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            1000
+          </td>
+        </tr>
+        <tr>
+          <td class="w-20 px-6 py-4 whitespace-nowrap">
+            3
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            Chiara
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            800
+          </td>
+        </tr>
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap">
+            4
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            Max
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            700
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="basis-1/2 flex justify-center items-center">
+    <turbo-frame id="match_frame">
+      <div class="text-center">
+        <%= button_to "New match",
+                      codes_path,
+                      method: :post,
+                      class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4",
+                      data: { turbo_frame: "match_frame" }
+        %>
+      </div>
+      <div class="text-center">
+        <% if user_signed_in? %>
+          <div class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Join match</div>
+        <% else %>
+          <div class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-4">Log in to join match</div>
+        <% end %>
+      </div>
+    </turbo-frame>
+  </div>
+</div>

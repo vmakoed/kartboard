@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "participants_list_#{match.code}" do %>
+  <h2>Participants:</h2>
+  <% if participants.empty? %>
+    <p>No participants yet</p>
+  <% else %>
+    <% participants.each do |participant| %>
+      <p><%= participant.user.name %></p> <!-- replace with your actual attribute -->
+    <% end %>
+  <% end %>
+<% end %>

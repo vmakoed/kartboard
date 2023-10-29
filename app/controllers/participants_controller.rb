@@ -1,28 +1,16 @@
-class ParticipantsController < ActionController::Base
+class ParticipantsController < ApplicationController
   before_action :authenticate_user!
 
-  def new; end
-
   def create
-    @match = Match.find(params[:match_id])
-    @participant = Participant.create(
+    @match = Match.find_or_create_by(code: params[:match_code])
+    Participant.create(
       match: @match,
       user: current_user
     )
 
-    redirect_to edit_match_participant_path(@match, @participant)
-  end
-
-  def edit
-    @match = Match.find(params[:match_id])
-    @participant = Participant.find(params[:id])
-  end
-
-  def update
-    @participant = Participant.find(params[:id])
-    @participant.update!(participant_params)
-
-    redirect_to match_path(Match.find(params[:match_id]))
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   private
