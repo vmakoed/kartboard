@@ -1,0 +1,12 @@
+<div class="basis-3/4 flex flex-grow flex-col items-center">
+  <div class="py-2 text-center text-lg">Match code: <%= @match.code %></div>
+  <div class="py-2 text-center"><%= raw svg %></div>
+  <%= render 'participants/list', match: @match %>
+</div>
+<div class="basis-1/4 flex flex-col items-center justify-center">
+  <%= link_to "Back to board",
+              root_path,
+              class: "outline outline-blue-500 text-blue-500 hover:bg-blue-100 font-bold py-2 px-4 rounded w-full text-lg text-center",
+              date: { turbo_action: "replace", turbo_frame: "main_frame" }
+  %>
+</div>

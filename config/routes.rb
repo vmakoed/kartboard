@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   end
 
   resources :participants, only: :create
-  resources :codes, only: :create
+  resources :matches, only: :create
 end
