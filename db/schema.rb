@@ -11,23 +11,23 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.1].define(version: 2023_10_28_172420) do
-  create_table "matches", force: :cascade do |t|
+  create_table "players", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "run_id", null: false
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["run_id", "user_id"], name: "index_players_on_run_id_and_user_id", unique: true
+    t.index ["run_id"], name: "index_players_on_run_id"
+    t.index ["user_id"], name: "index_players_on_user_id"
+  end
+
+  create_table "runs", force: :cascade do |t|
     t.datetime "completed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "code", limit: 6, null: false
-    t.index ["code"], name: "index_matches_on_code", unique: true
-  end
-
-  create_table "participants", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "match_id", null: false
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["match_id", "user_id"], name: "index_participants_on_match_id_and_user_id", unique: true
-    t.index ["match_id"], name: "index_participants_on_match_id"
-    t.index ["user_id"], name: "index_participants_on_user_id"
+    t.index ["code"], name: "index_runs_on_code", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,6 +39,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_172420) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "participants", "matches"
-  add_foreign_key "participants", "users"
+  add_foreign_key "players", "runs"
+  add_foreign_key "players", "users"
 end

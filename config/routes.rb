@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root 'boards#show'
+  root 'runs#index'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
   devise_scope :user do
@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  resources :participants, only: :create
-  resources :matches, only: :create
+  resources :runs, only: [:index, :show, :create, :destroy] do
+    resources :players, only: [:create, :destroy]
+  end
 end

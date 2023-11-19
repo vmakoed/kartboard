@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :participants
-  has_many :matches, through: :participants
+  has_many :players
+  has_many :runs, through: :players
 
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 

@@ -1,0 +1,33 @@
+<%= turbo_stream_from @run.players_stream_id %>
+
+<div class="basis-3/4 flex flex-grow flex-col justify-start items-center">
+  <div class="py-2 text-center text-xl"><%= @run.code %></div>
+  <div class="py-2 text-center mb-4">
+    <%= link_to @run.join_url do %>
+      <%= raw @run.join_qr %>
+    <% end %>
+  </div>
+
+  <%= turbo_frame_tag 'players', class: "w-full" do %>
+    <% if @run.players.present? %>
+      <%= render partial: 'players/list', locals: { run: @run } %>
+    <% else %>
+      No players yet
+    <% end %>
+  <% end %>
+
+</div>
+<div class="basis-1/4 flex flex-col items-end justify-center">
+
+  <%= turbo_frame_tag "run_user_action", class: "w-full" do %>
+    <%= render partial: 'user_action', locals: { run: @run } %>
+  <% end %>
+
+  <div class="w-full">
+    <%= button_to "Delete run",
+                  run_path(@run),
+                  method: :delete,
+                  class: "btn--secondary "
+    %>
+  </div>
+</div>
