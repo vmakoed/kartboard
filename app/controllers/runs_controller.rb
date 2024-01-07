@@ -1,6 +1,6 @@
 class RunsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_run, only: [:show, :destroy]
+  before_action :set_run, only: [:show, :destroy, :start, :finish]
 
   def index
     @runs = Run.all
@@ -21,6 +21,14 @@ class RunsController < ApplicationController
     @run.destroy
 
     redirect_to runs_path
+  end
+
+  def start
+    @run.start!
+  end
+
+  def finish
+    @run.finish!
   end
 
   private

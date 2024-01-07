@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   end
 
   resources :runs, only: [:index, :show, :create, :destroy] do
-    resources :players, only: [:create, :destroy]
+    resources :players, only: [:create, :edit, :update, :destroy]
+
+    member do
+      patch :start
+      patch :finish
+    end
   end
 end

@@ -1,13 +1,17 @@
-<% if run.joined_by_current_user? %>
-  <%= button_to "Leave",
-                run_player_path(run, run.current_user_player),
-                method: :delete,
-                class: "btn--primary"
-  %>
-<% else %>
-  <%= button_to "Join",
-                run_players_path(run),
-                method: :post,
-                class: "btn--primary"
-  %>
+<!--TODO: refactor this-->
+<% if run.created? %>
+  <% if run.joined_by_current_user?  %>
+    <%= button_to "Leave",
+                  run_player_path(run, run.current_user_player),
+                  method: :delete,
+                  class: "btn--secondary"
+    %>
+  <% else %>
+    <%= button_to "Join",
+                  run_players_path(run),
+                  method: :post,
+                  class: "btn--secondary"
+    %>
+  <% end %>
 <% end %>
+

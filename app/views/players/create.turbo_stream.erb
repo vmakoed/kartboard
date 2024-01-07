@@ -1,7 +1,3 @@
-<%= turbo_stream.update "players" do %>
-  <%= render @run.players %>
-<% end %>
-
 <%= turbo_stream.update "run_user_action",
                         partial: "runs/user_action",
                         locals: { run: @run } %>

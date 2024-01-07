@@ -1,0 +1,13 @@
+<% if run.may_start? %>
+  <%= button_to "Start",
+                start_run_path(run),
+                method: :patch,
+                class: "btn--primary" %>
+<% end %>
+
+<% if run.may_finish? %>
+  <%= button_to "Finish",
+                finish_run_path(run),
+                method: :patch,
+                class: "btn--primary" %>
+<% end %>
