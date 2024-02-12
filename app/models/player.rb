@@ -13,6 +13,9 @@ class Player < ApplicationRecord
             uniqueness: { scope: :run_id },
             allow_blank: true
 
+  # TODO: refactor with broadcasts_to?
+  # TODO: remove from model?
+
   after_create_commit -> { broadcast_run_updates }
   after_update_commit -> { broadcast_run_updates }
   after_destroy_commit -> { broadcast_run_updates }
