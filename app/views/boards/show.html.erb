@@ -1,7 +1,24 @@
 <% if current_user %>
-  Hello, <%= current_user.name %>
-  <br>
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+  <br>
+  <table>
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Score</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.score %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 <% else %>
   <%= button_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path %>
 <% end %>

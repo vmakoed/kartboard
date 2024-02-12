@@ -1,0 +1,11 @@
+alice_contestant:
+  contest: weekly_race
+  user: alice
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+bob_contestant:
+  contest: weekly_race
+  user: bob
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
