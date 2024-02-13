@@ -1,0 +1,24 @@
+<%= form_with model: @contest, local: true do |form| %>
+  <% if @contest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contest.errors.count, "error") %> prohibited this contest from being saved:</h2>
+
+      <ul>
+        <% @contest.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.fields_for :contestants do |contestant_form| %>
+    <div class="field">
+      <%= contestant_form.label :user_id, 'Select a contestant:' %>
+      <%= contestant_form.collection_select :user_id, User.all, :id, :name, include_blank: true %>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

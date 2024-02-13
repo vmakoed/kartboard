@@ -1,11 +1,13 @@
 alice_contestant:
   contest: weekly_race
   user: alice
+  place: 1
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
 
 bob_contestant:
   contest: weekly_race
   user: bob
+  place: 2
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>

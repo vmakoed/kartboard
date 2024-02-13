@@ -1,6 +1,7 @@
 <% if current_user %>
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
   <br>
+  <%= link_to "New race", new_contest_path %>
   <table>
     <thead>
     <tr>
