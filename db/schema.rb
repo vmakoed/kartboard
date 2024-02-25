@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_205211) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "place", null: false
-    t.index ["contest_id", "place"], name: "index_contestants_on_contest_id_and_place", unique: true
     t.index ["contest_id"], name: "index_contestants_on_contest_id"
     t.index ["user_id", "contest_id"], name: "index_contestants_on_user_id_and_contest_id", unique: true
     t.index ["user_id"], name: "index_contestants_on_user_id"

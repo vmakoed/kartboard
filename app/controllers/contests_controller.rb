@@ -8,9 +8,7 @@ class ContestsController < ActionController::Base
   end
 
   def create
-    @contest = Contests::Create.call(
-      contestants_attributes: contest_params[:contestants_attributes]
-    )
+    @contest = Contests::Build.call(contest_params: contest_params)
 
     if @contest.save
       redirect_to root_path
@@ -22,6 +20,6 @@ class ContestsController < ActionController::Base
   private
 
   def contest_params
-    params.require(:contest).permit(contestants_attributes: [:user_id])
+    params.require(:contest).permit(contestants_attributes: [:place, :user_id])
   end
 end

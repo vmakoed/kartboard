@@ -20,4 +20,32 @@ class ContestTest < ActiveSupport::TestCase
       contest.destroy
     end
   end
+
+  test 'validates places within sequence' do
+    @contest = Contest.new
+
+    @contest.contestants.build(place: 1, user: users(:alice))
+    @contest.contestants.build(place: 2, user: users(:bob))
+    @contest.contestants.build(place: 4, user: users(:charlie))
+
+    assert_not @contest.valid?
+    assert_includes @contest.errors[:contestants], 'invalid progression of places, expected 3 got 4'
+  end
+
+  test 'validates contestants size within range' do
+    @contest = Contest.new
+
+    @contest.contestants.build(place: 1, user: users(:alice))
+    @contest.contestants.build(place: 2, user: users(:bob))
+    assert @contest.valid?
+
+    @contest.contestants = []
+    @contest.contestants.build(place: 1, user: users(:alice))
+    @contest.contestants.build(place: 1, user: users(:bob))
+    @contest.contestants.build(place: 1, user: users(:charlie))
+    @contest.contestants.build(place: 1, user: users(:dave))
+    @contest.contestants.build(place: 1, user: users(:edward))
+    assert_not @contest.valid?
+    assert_includes @contest.errors[:contestants], 'must be at least 2 and at most 4 in size'
+  end
 end

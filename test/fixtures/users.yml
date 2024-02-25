@@ -15,3 +15,30 @@ bob:
   score: 1200
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
+
+charlie:
+  email: bob@google.com
+  name: Charlie
+  provider: google_oauth2
+  uid: "104546065561980871263"
+  score: 800
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+dave:
+  email: dave@google.com
+  name: Dave
+  provider: google_oauth2
+  uid: "783675733396313923267"
+  score: 1100
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>
+
+edward:
+  email: edward@google.com
+  name: Edward
+  provider: google_oauth2
+  uid: "606077867698100128097"
+  score: 900
+  created_at: <%= Time.now %>
+  updated_at: <%= Time.now %>

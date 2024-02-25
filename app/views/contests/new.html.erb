@@ -12,13 +12,17 @@
   <% end %>
 
   <%= form.fields_for :contestants do |contestant_form| %>
-    <div class="field">
+    <div>
+      <%= contestant_form.label :place, 'Select a place:' %>
+      <%= contestant_form.collection_select :place, Contestant::PLACES, :itself, :itself, include_blank: false %>
+    </div>
+    <div>
       <%= contestant_form.label :user_id, 'Select a contestant:' %>
       <%= contestant_form.collection_select :user_id, User.all, :id, :name, include_blank: true %>
     </div>
   <% end %>
 
-  <div class="actions">
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
