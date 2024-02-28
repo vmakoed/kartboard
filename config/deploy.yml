@@ -2,7 +2,7 @@
 service: kartboard
 
 # Name of the container image.
-image: vmakoed/kartboard
+image: rubybit/kartboard
 
 # Deploy to these servers.
 servers:
@@ -20,11 +20,11 @@ registry:
 
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
-# env:
+env:
 #   clear:
 #     DB_HOST: 192.168.0.2
-#   secret:
-#     - RAILS_MASTER_KEY
+   secret:
+     - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
 # ssh:
