@@ -1,4 +1,4 @@
-class ContestsController < ActionController::Base
+class ContestsController < ApplicationController
   def new
     @contest = Contest.new
 

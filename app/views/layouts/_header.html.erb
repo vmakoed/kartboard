@@ -1,0 +1,14 @@
+<% if user_signed_in? %>
+    <%= link_to root_path, class: 'font-bold text-2xl text-center' do %>
+      <span class='text-slate-800'>kart</span><span class='text-slate-400'>ga.me</span>
+    <% end %>
+    <%= button_to 'Sign out',
+                destroy_user_session_path,
+                method: :delete,
+                class: 'bg-slate-900 hover:bg-slate-700 font-semibold py-2 px-4 rounded-lg text-md'
+    %>
+<% else %>
+  <%= link_to root_path, class: 'font-bold text-2xl text-center w-full' do %>
+    <span class='text-slate-800'>kart</span><span class='text-slate-400'>ga.me</span>
+  <% end %>
+<% end %>
