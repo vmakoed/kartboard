@@ -7,6 +7,7 @@ class Contest < ApplicationRecord
 
   validate :places_within_sequence
   validate :contestants_size_within_range
+  validate :unique_contestants_by_user
 
   private
 
@@ -21,10 +22,8 @@ class Contest < ApplicationRecord
       if place != expected_next_place
         errors.add(
           :contestants,
-          <<~ERROR
-            have invalid placement, expected #{expected_next_place.ordinalize} 
-            place instead of #{place.ordinalize} place"
-          ERROR
+          "have invalid placement, expected #{expected_next_place.ordinalize}" +
+            " place instead of #{place.ordinalize} place"
         )
         return
       end
@@ -38,6 +37,12 @@ class Contest < ApplicationRecord
       (Contestant::PLACES.min + 1)..Contestant::PLACES.max
     )
 
-    errors.add(:contestants, "must be at least 2 and at most 4 in size")
+    errors.add(:base, "The number of participants must be between 2 and 4")
+  end
+
+  def unique_contestants_by_user
+    return if contestants.map(&:user_id).uniq.size == contestants.size
+
+    errors.add(:base, "A single user cannot participate more than once")
   end
 end

@@ -29,7 +29,7 @@ class ContestTest < ActiveSupport::TestCase
     @contest.contestants.build(place: 4, user: users(:charlie))
 
     assert_not @contest.valid?
-    assert_includes @contest.errors[:contestants], 'invalid progression of places, expected 3 got 4'
+    assert_includes @contest.errors[:contestants], 'have invalid placement, expected 3rd place instead of 4th place'
   end
 
   test 'validates contestants size within range' do
@@ -46,6 +46,6 @@ class ContestTest < ActiveSupport::TestCase
     @contest.contestants.build(place: 1, user: users(:dave))
     @contest.contestants.build(place: 1, user: users(:edward))
     assert_not @contest.valid?
-    assert_includes @contest.errors[:contestants], 'must be at least 2 and at most 4 in size'
+    assert_includes @contest.errors[:base], 'The number of participants must be between 2 and 4'
   end
 end
