@@ -19,7 +19,13 @@ class Contest < ApplicationRecord
     expected_next_place = 1
     place_counts.each do |place, count|
       if place != expected_next_place
-        errors.add(:contestants, "invalid progression of places, expected #{expected_next_place} got #{place}")
+        errors.add(
+          :contestants,
+          <<~ERROR
+            have invalid placement, expected #{expected_next_place.ordinalize} 
+            place instead of #{place.ordinalize} place"
+          ERROR
+        )
         return
       end
 

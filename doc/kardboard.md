@@ -1,7 +1,7 @@
 The purpose of the app is to allow submitting results of a series of contests in
 order to display them in a leaderboard. The app is designed to be used by
 players of the game Super Mario Kart 8 Deluxe but can be used for other games
-with similar scoring systems. Currently it is limited to up to 4 players.
+with similar scoring systems. 
 
 Every Versus Race or a Grand Prix consists of 12 racers including up to 4 real 
 players. The placement only takes real players into account. Consider
