@@ -26,8 +26,11 @@
     <% end %>
     <%= button_to "Sign in with Google",
                   user_google_oauth2_omniauth_authorize_path,
-                  class: "bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 px-4 rounded-lg w-full text-xl mt-5",
-                  data: { turbo: false }
+                  {
+                    form: { class: "flex" },
+                    class: "bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 px-4 rounded-lg w-full sm:w-auto sm:max-w-md sm:mx-auto text-xl mt-5",
+                    data: { turbo: false }
+                  }
     %>
   </div>
 </div>
