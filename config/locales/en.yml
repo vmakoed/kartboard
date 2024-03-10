@@ -28,6 +28,9 @@
 #       enabled: "ON"
 
 en:
+  devise:
+    failure:
+      unauthenticated: ''
   hello: "Hello world"
   helpers:
     submit:
