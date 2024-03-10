@@ -11,12 +11,16 @@ class ContestsController < ApplicationController
     @contest = Contests::Build.call(contest_params: contest_params)
 
     if @contest.save
-      redirect_to root_path
+      redirect_to contest_path(@contest)
     else
       build_contestants
 
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def show
+    @contestants = Contest.find(params[:id]).contestants
   end
 
   private

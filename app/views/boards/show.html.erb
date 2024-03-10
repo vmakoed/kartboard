@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center text-4xl font-extrabold tracking-[-0.04em] text-center h-50 py-8">
   Leaderboard
 </div>
-<div class="flex flex-col flex-grow overflow-y-auto mb-5 sm:w-auto sm:max-w-md sm:mx-auto">
+<div class="flex flex-col flex-grow overflow-y-auto mb-5">
   <div class="overflow-y-auto">
     <ul role="list" class="divide-y divide-gray-200">
       <% @users.each_with_index do |user, index| %>
@@ -13,7 +13,7 @@
             </div>
             <div class="font-semibold"><%= user.name %></div>
           </div>
-          <div><%= user.score %></div>
+          <div><%= user.score %> pts</div>
         </li>
       <% end %>
     </ul>
