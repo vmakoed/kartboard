@@ -21,10 +21,7 @@ class User < ApplicationRecord
   private
 
   def email_allowed
-    domain = email.split('@').last.downcase
-
-    return if ENV.fetch('ALLOWED_DOMAINS', '').split(',').include?(domain)
-    return if ENV.fetch('ALLOWED_EMAILS', '').split(',').include?(email.downcase)
+    return if Users::EmailVerification.passed?(email: email)
 
     errors.add(:email, 'is not allowed')
   end

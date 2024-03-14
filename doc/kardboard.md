@@ -29,7 +29,11 @@ will be "shifted" by the number of players who tied. For example:
 Even though Charlie's score is technically second, the second place is already 
 "taken" by the tie. This follows the in-game leaderboard of Mario Kart 8 Deluxe.
 
-The only supported user login is through Google.
+The only supported user login is through Google. The list of allowed emails is 
+restricted.
 
 A user is created upon first login. Each user is assigned 1000 points. Every
-race updates contestants' total score and their position on the leaderboard.
+race updates contestants' total score but their position on the leaderboard is
+calculated dynamically upon every request.
+
+The leaderboard does not account for ties.

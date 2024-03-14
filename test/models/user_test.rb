@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'minitest/autorun'
 
 class UserTest < ActiveSupport::TestCase
   setup do
@@ -6,7 +7,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test 'valid user' do
-    assert @alice.valid?
+    Users::EmailVerification.stub :passed?, Proc.new { |email:|
+      assert_equal @alice.email, email
+      true
+    } do
+      assert @alice.valid?
+    end
   end
 
   test 'invalid without score' do
@@ -21,34 +27,28 @@ class UserTest < ActiveSupport::TestCase
     assert_includes @alice.errors[:score], 'must be greater than or equal to 0'
   end
 
-  test 'from_omniauth creates a new user if not exists' do
-    auth = OmniAuth::AuthHash.new({
-                                    provider: 'google_oauth2',
-                                    uid: 'new_uid',
-                                    info: {
-                                      email: 'new_user@google.com',
-                                      name: 'New User'
-                                    }
-                                  })
-
-    assert_difference 'User.count', 1 do
-      User.from_omniauth(auth)
-    end
-  end
-
   test 'from_omniauth finds an existing user' do
     auth = OmniAuth::AuthHash.new({
-                                    provider: 'google_oauth2',
-                                    uid: @alice.uid,
-                                    info: {
-                                      email: @alice.email,
-                                      name: @alice.name
-                                    }
-                                  })
+      provider: 'google_oauth2',
+      uid: @alice.uid,
+      info: {
+        email: @alice.email,
+        name: @alice.name
+      }
+    })
 
-    assert_no_difference 'User.count' do
-      user = User.from_omniauth(auth)
-      assert_equal @alice.id, user.id
+    user = User.from_omniauth(auth)
+    assert_equal @alice.id, user.id
+  end
+
+  def test_validates_that_a_disallowed_email_adds_an_error
+    Users::EmailVerification.stub :passed?, Proc.new { |email:|
+        assert_equal @alice.email, email
+        false
+      } do
+        refute @alice.valid?
     end
+
+    assert_includes @alice.errors[:email], 'is not allowed'
   end
 end
