@@ -1,8 +1,8 @@
 <div class="flex flex-col justify-center text-4xl font-extrabold tracking-[-0.04em] text-center h-50 py-8">
   New race
 </div>
-<%= form_with model: @contest, local: true, class: "flex flex-col flex-grow overflow-y-auto mb-5" do |form| %>
-  <div class="flex flex-col flex-grow items-center divide-y divide-gray-200 overflow-y-auto">
+<%= form_with model: @contest, local: true, class: "flex flex-col flex-grow overflow-y-auto" do |form| %>
+  <div class="flex flex-col flex-grow items-center divide-y divide-gray-200 overflow-y-auto mb-8">
     <% if @contest.errors.any? %>
       <div class="rounded-md bg-red-50 p-4">
         <div class="flex">
@@ -44,7 +44,11 @@
       </div>
     <% end %>
   </div>
-  <div class="flex flex-col flex-grow justify-end px-6 pb-8">
-    <%= form.submit class: "bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 px-4 rounded-lg w-full sm:w-auto sm:max-w-md sm:mx-auto text-xl mt-5 text-center" %>
+  <div class="flex flex-col flex-grow justify-end px-6 pb-8 space-y-4">
+    <%= form.submit class: "bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 px-4 rounded-lg w-full sm:w-48 sm:mx-auto text-xl text-center" %>
+    <%= link_to "Back to leaderboard",
+                root_path,
+                class: "bg-white/0 text-slate-900 ring-1 ring-slate-900/10 hover:bg-white/25 hover:ring-slate-900/15 font-semibold py-3 px-4 rounded-lg w-full sm:w-48 sm:mx-auto text-xl mt-5 text-center"
+    %>
   </div>
 <% end %>

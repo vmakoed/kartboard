@@ -13,5 +13,5 @@ Rails.application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
   end
 
-  resources :contests, only: [:new, :create, :show]
+  resources :contests, only: [:index, :new, :create, :show]
 end

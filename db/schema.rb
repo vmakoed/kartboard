@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_13_205211) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_16_210900) do
   create_table "contestants", force: :cascade do |t|
     t.integer "contest_id", null: false
     t.integer "user_id", null: false
@@ -25,6 +25,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_205211) do
   create_table "contests", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "created_by_id"
+    t.index ["created_by_id"], name: "index_contests_on_created_by_id"
   end
 
   create_table "score_logs", force: :cascade do |t|
@@ -49,5 +51,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_13_205211) do
 
   add_foreign_key "contestants", "contests"
   add_foreign_key "contestants", "users"
+  add_foreign_key "contests", "users", column: "created_by_id"
   add_foreign_key "score_logs", "contestants"
 end

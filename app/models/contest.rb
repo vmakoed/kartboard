@@ -1,4 +1,6 @@
 class Contest < ApplicationRecord
+  belongs_to :created_by, class_name: 'User'
+
   has_many :contestants, dependent: :destroy
   has_many :users, through: :contestants
 

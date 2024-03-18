@@ -1,5 +1,12 @@
 # README
 
+## Local development
+
+1. Install and switch to the ruby version specified in `.ruby-version`
+2. Run `bundle install` to install dependencies
+3. Run `rails db:setup` to create the database
+4. Start the server by running  `bin/dev`
+
 ## Environment variables
 
 Loaded from `.env` file at the root of the project: 
@@ -7,17 +14,16 @@ https://github.com/bkeepers/dotenv.
 
 ## Authentication
 
-* Get Client ID and Client Secret from Google at 
+1. Get Client ID and Client Secret from Google at 
 https://console.cloud.google.com/apis/credentials
+2. Add `http://<host>/auth/google_oauth2/callback` to Authorised redirect URIs
+3. Set the environment variables `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
 
-* Add `http://<host>/auth/google_oauth2/callback` to Authorised redirect URIs
-
-* Set the environment variables `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
-
-* Optional: use `ALLOWED_EMAILS` to restrict the list of allowed emails (a 
-comma-separated list)
-  * Use `ALLOWED_DOMAINS` to allow all emails from specific domains
-  * If you are running tests, make sure these variables are set to empty values
+Optional: restrict the list of allowed emails 
+* Set a comma-separated list with emails to `ALLOWED_EMAILS` environment 
+variable
+* Use `ALLOWED_DOMAINS` to allow all emails from specific domains 
+* If you are running tests, make sure these variables are set to empty values
 (use `.env.test.local`)
 
 ## Deployment

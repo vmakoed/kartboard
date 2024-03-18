@@ -1,4 +1,11 @@
 class ContestsController < ApplicationController
+  def index
+    @contests = Contest
+      .order(created_at: :desc)
+      .limit(25)
+      .includes(contestants: [:user, :score_log])
+      .map(&Contests::View.method(:new))
+  end
   def new
     @contest = Contest.new
 
@@ -8,7 +15,9 @@ class ContestsController < ApplicationController
   end
 
   def create
-    @contest = Contests::Build.call(contest_params: contest_params)
+    @contest = Contests::Build.call(
+      contest_params: contest_params.merge(created_by: current_user)
+    )
 
     if @contest.save
       redirect_to contest_path(@contest)
@@ -20,7 +29,11 @@ class ContestsController < ApplicationController
   end
 
   def show
-    @contestants = Contest.find(params[:id]).contestants
+    @contestants = Contest
+      .find(params[:id])
+      .contestants
+      .includes(:user, :score_log)
+      .map(&Contestants::View.method(:new))
   end
 
   private
