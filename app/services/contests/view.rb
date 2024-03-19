@@ -1,7 +1,12 @@
 module Contests
   class View < SimpleDelegator
+    def initialize(contest, contestants_view_class = Contestants::View)
+      super(contest)
+      @contestants_view_class = contestants_view_class
+    end
+
     def contestants
-      super.map(&Contestants::View.method(:new))
+      super.map(&@contestants_view_class.method(:new))
     end
 
     def winners

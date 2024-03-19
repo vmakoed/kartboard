@@ -2,12 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
-
 @layer components {
   .btn-primary {
-    @apply py-2 px-4 bg-blue-200;
+    @apply bg-slate-900 hover:bg-slate-700 text-white font-semibold py-3 px-4 rounded-lg text-xl text-center;
+  }
+
+  .btn-secondary {
+    @apply bg-white/0 text-slate-900 ring-1 ring-slate-900/10 hover:bg-white/25 hover:ring-slate-900/15 font-semibold py-3 px-4 rounded-lg text-xl text-center;
   }
 }
-
-*/

@@ -1,0 +1,29 @@
+<%# locals: (contest:, include_line: true, contest_counter: nil, contest_iteration: nil) %>
+
+<li>
+  <div class="relative pb-8">
+    <% if include_line %>
+      <span class="absolute left-5 top-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+    <% end %>
+    <div class="relative flex space-x-3">
+      <div>
+        <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
+          <span class="font-medium text-gray-600 dark:text-gray-300"><%= contest.winners.first.user.name.split.map(&:first).join %></span>
+        </div>
+      </div>
+      <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+        <div>
+          <% contest.winners.each do |contestant| %>
+            <p class="text-gray-500"><span class="font-medium text-gray-900"><%= contestant.user.name %></span>: <%= '%+d' % contestant.score_log.score_difference %> pts</p>
+          <% end %>
+          <% contest.losers.each do |contestant| %>
+            <p class="text-gray-500"><%= contestant.user.name %>: <%= '%+d' % contestant.score_log.score_difference %> pts</p>
+          <% end %>
+        </div>
+        <div class="whitespace-nowrap text-right text-sm text-gray-500">
+          <time datetime="2020-09-20"><%= contest.created_at.strftime("%b %d") %></time>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>
