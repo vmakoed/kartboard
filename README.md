@@ -17,6 +17,8 @@ https://github.com/bkeepers/dotenv.
 1. Get Client ID and Client Secret from Google at 
 https://console.cloud.google.com/apis/credentials
 2. Add `http://<host>/auth/google_oauth2/callback` to Authorised redirect URIs
+where `host` is the domain of the application (e.g. `localhost:3000` for local 
+development)
 3. Set the environment variables `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`
 
 Optional: restrict the list of allowed emails 
