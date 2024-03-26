@@ -5,16 +5,29 @@
   <div class="overflow-y-auto">
     <ul role="list" class="divide-y divide-gray-200">
       <% @users.each_with_index do |user, index| %>
-        <li class="flex items-center px-6 py-4 text-lg gap-4">
-          <div class="flex flex-grow items-center gap-4">
-            <div class="font-semibold w-6"><%= index + 1 %></div>
-            <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
-              <span class="font-medium text-gray-600 dark:text-gray-300"><%= user.name.split.map(&:first).join %></span>
+        <% if user == current_user %>
+          <li class="flex items-center px-6 py-4 text-lg gap-4 bg-slate-200">
+            <div class="flex flex-grow items-center gap-4">
+              <div class="font-semibold w-6"><%= index + 1 %></div>
+              <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
+                <span class="font-medium text-gray-600"><%= user.name.split.map(&:first).join %></span>
+              </div>
+              <div class="font-semibold w-[calc(100vw-15rem)] sm:w-52 whitespace-nowrap overflow-hidden truncate"><%= user.name %></div>
             </div>
-            <div class="font-semibold w-[calc(100vw-15rem)] sm:w-52 whitespace-nowrap overflow-hidden truncate"><%= user.name %></div>
-          </div>
-          <div class="w-20 text-right"><%= user.score %> pts</div>
-        </li>
+            <div class="w-20 text-right"><%= user.score %> pts</div>
+          </li>
+        <% else %>
+          <li class="flex items-center px-6 py-4 text-lg gap-4">
+            <div class="flex flex-grow items-center gap-4">
+              <div class="font-semibold w-6"><%= index + 1 %></div>
+              <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
+                <span class="font-medium text-gray-600"><%= user.name.split.map(&:first).join %></span>
+              </div>
+              <div class="font-semibold w-[calc(100vw-15rem)] sm:w-52 whitespace-nowrap overflow-hidden truncate"><%= user.name %></div>
+            </div>
+            <div class="w-20 text-right"><%= user.score %> pts</div>
+          </li>
+        <% end %>
       <% end %>
     </ul>
   </div>

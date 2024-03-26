@@ -28,7 +28,7 @@
     <%= form.fields_for :contestants do |contestant_form| %>
       <div class="flex items-baseline justify-center px-6 py-4 w-full">
         <%= contestant_form.collection_select :user_id,
-                                              User.all,
+                                              User.select(:id, :name).order(:name),
                                               :id,
                                               :name,
                                               { include_blank: "Select contestant" },
