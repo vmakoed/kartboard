@@ -13,11 +13,11 @@
 
   <body>
   <div class="flex flex-col h-dvh overflow-hidden">
-    <header class="flex justify-between items-center p-4 w-full mx-auto h-16 sm:mx-auto sm:max-w-md md:max-w-lg">
+    <header class="flex justify-between items-center p-4 w-full mx-auto h-16 sm:mx-auto sm:max-w-md">
       <%= render "layouts/header" %>
     </header>
 
-    <main class="flex flex-col overflow-y-auto w-full h-[calc(100%-4rem)] sm:mx-auto sm:max-w-md md:max-w-lg">
+    <main class="flex flex-col overflow-y-auto w-full h-[calc(100%-4rem)] sm:mx-auto sm:max-w-md">
       <%= yield %>
     </main>
   </div>
