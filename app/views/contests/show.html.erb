@@ -4,16 +4,29 @@
 <div class="overflow-hidden">
   <ul role="list" class="divide-y divide-gray-300">
     <% @contestants.each do |contestant| %>
-      <li class="flex items-center px-6 py-4 text-lg gap-4">
-        <div class="flex flex-grow gap-4 items-center">
-          <div class="font-semibold"><%= contestant.place %></div>
-          <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
-            <span class="font-medium text-gray-600"><%= contestant.initials %></span>
+      <% if contestant.user == current_user %>
+        <li class="flex items-center px-6 py-4 text-lg gap-4">
+          <div class="flex flex-grow gap-4 items-center">
+            <div class="font-semibold"><%= contestant.place %></div>
+            <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
+              <span class="font-medium text-gray-600"><%= contestant.initials %></span>
+            </div>
+            <div class="font-semibold"><%= contestant.name %></div>
           </div>
-          <div class="font-semibold"><%= contestant.name %></div>
-        </div>
-        <div><%= contestant.signed_score_difference %> pts</div>
-      </li>
+          <div><%= contestant.signed_score_difference %> pts</div>
+        </li>
+      <% else %>
+        <li class="flex items-center px-6 py-4 text-lg gap-4 bg-slate-200">
+          <div class="flex flex-grow gap-4 items-center">
+            <div class="font-semibold"><%= contestant.place %></div>
+            <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
+              <span class="font-medium text-gray-600"><%= contestant.initials %></span>
+            </div>
+            <div class="font-semibold"><%= contestant.name %></div>
+          </div>
+          <div><%= contestant.signed_score_difference %> pts</div>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>
