@@ -11,7 +11,7 @@
           <span class="font-medium text-gray-600"><%= contest.winners.first.user.name.split.map(&:first).join %></span>
         </div>
       </div>
-      <%= link_to contest_path(contest) do %>
+      <%= link_to contest_path(contest), class: "w-full" do %>
         <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
           <div>
             <% contest.winners.each do |contestant| %>
