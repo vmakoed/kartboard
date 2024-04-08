@@ -11,19 +11,21 @@
           <span class="font-medium text-gray-600"><%= contest.winners.first.user.name.split.map(&:first).join %></span>
         </div>
       </div>
-      <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-        <div>
-          <% contest.winners.each do |contestant| %>
-            <p class="text-gray-500"><span class="font-medium text-gray-900"><%= contestant.user.name %></span>: <%= '%+d' % contestant.score_log.score_difference %> pts</p>
-          <% end %>
-          <% contest.losers.each do |contestant| %>
-            <p class="text-gray-500"><%= contestant.user.name %>: <%= '%+d' % contestant.score_log.score_difference %> pts</p>
-          <% end %>
+      <%= link_to contest_path(contest) do %>
+        <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+          <div>
+            <% contest.winners.each do |contestant| %>
+              <p class="text-gray-500"><span class="font-medium text-gray-900"><%= contestant.user.name %></span>: <%= '%+d' % contestant.score_log.score_difference %> pts</p>
+            <% end %>
+            <% contest.losers.each do |contestant| %>
+              <p class="text-gray-500"><%= contestant.user.name %>: <%= '%+d' % contestant.score_log.score_difference %> pts</p>
+            <% end %>
+          </div>
+          <div class="whitespace-nowrap text-right text-sm text-gray-500">
+            <time datetime="2020-09-20"><%= contest.created_at.strftime("%b %d") %></time>
+          </div>
         </div>
-        <div class="whitespace-nowrap text-right text-sm text-gray-500">
-          <time datetime="2020-09-20"><%= contest.created_at.strftime("%b %d") %></time>
-        </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </li>

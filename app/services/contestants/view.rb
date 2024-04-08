@@ -1,6 +1,6 @@
 module Contestants
   class View < SimpleDelegator
-    delegate :position_difference, to: :score_log
+    delegate :previous_position, :new_position, to: :score_log
 
     def initials
       user.name.split.map(&:first).join
@@ -14,14 +14,12 @@ module Contestants
       '%+d' % score_log.score_difference
     end
 
-    def signed_position_difference
-      if position_difference.positive?
-        "↑#{position_difference}"
-      elsif position_difference.negative?
-        "↓#{position_difference.abs}"
-      else
-        nil
-      end
+    def position_update
+      return nil if new_position.blank?
+      return nil if previous_position.blank?
+      return new_position if new_position == previous_position
+
+      "#{previous_position}→#{new_position}"
     end
 
     def winner?
