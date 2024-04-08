@@ -13,12 +13,12 @@ module Contestants
     end
   end
 
-  MockUser = Struct.new(:name, :first_name)
+  MockUser = Struct.new(:name)
   MockScoreLog = Struct.new(:score_difference)
 
   class ViewTest < Minitest::Test
     def setup
-      user = MockUser.new("John Doe", "John")
+      user = MockUser.new("John Doe")
       score_log = MockScoreLog.new(15)
       @first_place_contestant = MockContestant.new(user: user, place: MockContestant::PLACES.first, score_log: score_log)
       @view = Contestants::View.new(@first_place_contestant)
@@ -30,10 +30,6 @@ module Contestants
 
     def test_name
       assert_equal "John Doe", @view.name
-    end
-
-    def test_first_name
-      assert_equal "John", @view.first_name
     end
 
     def test_signed_score_difference

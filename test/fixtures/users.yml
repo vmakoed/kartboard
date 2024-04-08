@@ -12,7 +12,7 @@ bob:
   name: Bob
   provider: google_oauth2
   uid: "982014376543210987654"
-  score: 1200
+  score: 1030
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
 

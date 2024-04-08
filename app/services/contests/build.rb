@@ -10,22 +10,21 @@ module Contests
     def initialize(contest_params:)
       @contest_params = contest_params
       @score_differences = Hash.new(0)
+      @new_user_positions = Hash.new
     end
 
     def call
       calculate_score_differences
-      assign_attributes
+      assign_score_attributes
+      calculate_new_positions
+      assign_position_attributes
 
       contest
     end
 
     private
 
-    attr_reader :contest_params, :score_differences
-
-    def contest
-      @contest ||= Contest.new(contest_params)
-    end
+    attr_reader :contest_params, :score_differences, :new_user_positions
 
     def calculate_score_differences
       contest.contestants.each do |player|
@@ -37,7 +36,7 @@ module Contests
       end
     end
 
-    def assign_attributes
+    def assign_score_attributes
       score_differences.each do |contestant, score_difference|
         previous_score = contestant.user.score
         new_score = previous_score + score_difference
@@ -50,6 +49,42 @@ module Contests
 
         contestant.assign_attributes(user_attributes: { score: new_score })
       end
+    end
+
+    def calculate_new_positions
+      scores = User.order(score: :desc).pluck(:id, :score).to_h
+
+      contest.contestants.each do |contestant|
+        scores[contestant.user_id] += score_differences[contestant]
+      end
+
+      scores
+        .sort_by { |_, score| -score }
+        .each_with_index do |(user_id, _), index|
+          next if user_ids.exclude?(user_id)
+
+          new_user_positions[user_id] = index + 1
+        end
+    end
+
+    def assign_position_attributes
+      contest.contestants.each do |contestant|
+        previous_position = previous_user_positions[contestant.user_id]
+        new_position = new_user_positions[contestant.user_id]
+        contestant.score_log.assign_attributes(
+          previous_position: previous_position,
+          new_position: new_position,
+          position_difference: previous_position - new_position
+        )
+      end
+    end
+
+    def user_ids
+      @user_ids ||= contest.contestants.map(&:user_id)
+    end
+
+    def contest
+      @contest ||= Contest.new(contest_params)
     end
 
     # TODO: review algorithm, extract to a separate service
@@ -73,6 +108,16 @@ module Contests
       else
         0.0
       end
+    end
+
+    def previous_user_positions
+      @previous_positions ||= User
+        .order(score: :desc)
+        .pluck(:id)
+        .each_with_index
+        .to_h
+        .slice(*user_ids)
+        .transform_values { |index| index + 1 }
     end
   end
 end

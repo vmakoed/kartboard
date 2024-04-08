@@ -24,11 +24,25 @@ module Contests
       assert_equal @user2, contest.contestants.second.user
     end
 
-    test 'calculates score changes correctly' do
+    test 'calculates score logs correctly' do
       contest = Contests::Build.call(contest_params: @contest_params)
 
-      assert_equal contest.contestants[0].user.score, 1024
-      assert_equal contest.contestants[1].user.score, 1176
+      assert_equal contest.contestants[0].user.score, 1017
+      assert_equal contest.contestants[1].user.score, 1013
+      assert_equal contest.contestants[0].place, 1
+      assert_equal contest.contestants[1].place, 2
+      assert_equal contest.contestants[0].score_log.previous_score, 1000
+      assert_equal contest.contestants[0].score_log.new_score, 1017
+      assert_equal contest.contestants[0].score_log.score_difference, 17
+      assert_equal contest.contestants[1].score_log.previous_score, 1030
+      assert_equal contest.contestants[1].score_log.new_score, 1013
+      assert_equal contest.contestants[1].score_log.score_difference, -17
+      assert_equal contest.contestants[0].score_log.previous_position, 3
+      assert_equal contest.contestants[0].score_log.new_position, 2
+      assert_equal contest.contestants[0].score_log.position_difference, 1
+      assert_equal contest.contestants[1].score_log.previous_position, 2
+      assert_equal contest.contestants[1].score_log.new_position, 3
+      assert_equal contest.contestants[1].score_log.position_difference, -1
     end
   end
 end
