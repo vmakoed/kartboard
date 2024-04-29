@@ -1,21 +1,23 @@
 class User < ApplicationRecord
+  DEFAULT_SCORE = 1000
+
   has_many :contestants, dependent: :destroy
   has_many :contests, through: :contestants
 
-  validates :email, :name, :provider, :uid, presence: true
+  validates :email, :name, presence: true
   validates :score, numericality: { greater_than_or_equal_to: 0 }
   validate :email_allowed, if: -> { email.present? }
 
   devise :omniauthable, omniauth_providers: [:google_oauth2]
 
+  scope :with_contestants, -> { joins(:contestants).distinct }
+
   def self.from_omniauth(auth)
-    find_or_initialize_by(
-      provider: auth.provider,
-      uid: auth.uid
-    ).tap { |user|
-      user.email = auth.info.email
+    find_or_initialize_by(email: auth.info.email.downcase).tap do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
       user.name = auth.info.name
-    }
+    end
   end
 
   private

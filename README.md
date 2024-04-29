@@ -49,3 +49,17 @@ https://doc.traefik.io/traefik/routing/routers/
 for Let's Encrypt
 
 Use `kamal setup` to deploy to the servers.
+
+## BambooHR integration
+
+If your organization is using BambooHR and [directory API](
+<https://documentation.bamboohr.com/reference/get-employees-directory-1>
+) is enabled, you can create or update user accounts by calling `Users::Sync`
+service. Specify the following environment variables:
+* `BAMBOOHR_API_KEY`
+* `BAMBOOHR_SUBDOMAIN`
+
+Check out [BambooHR API documentation](
+<https://documentation.bamboohr.com/docs/getting-started#section-authentication>
+) 
+for more information.

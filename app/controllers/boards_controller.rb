@@ -1,5 +1,5 @@
 class BoardsController < ApplicationController
   def show
-    @users = User.order(score: :desc)
+    @users = User.with_contestants.order(score: :desc)
   end
 end

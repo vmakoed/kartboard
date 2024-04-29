@@ -35,6 +35,8 @@ env:
      - GOOGLE_CLIENT_SECRET
      - ALLOWED_DOMAINS
      - ALLOWED_EMAILS
+     - BAMBOOHR_SUBDOMAIN
+     - BAMBOOHR_API_KEY
 volumes:
   - "storage:/rails/storage"
 

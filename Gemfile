@@ -45,9 +45,10 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 gem "devise", "~> 4.9"
-gem 'omniauth-google-oauth2'
-gem "omniauth-rails_csrf_protection"
+gem "omniauth-google-oauth2", "~> 1.1"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "tailwindcss-rails", "~> 2.3"
+gem "rest-client", "~> 2.1"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
