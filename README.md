@@ -63,3 +63,17 @@ Check out [BambooHR API documentation](
 <https://documentation.bamboohr.com/docs/getting-started#section-authentication>
 ) 
 for more information.
+
+The integration syncs user pictures as well. ActiveStorage will try to purge old
+profile pictures after attaching new one. This is done asynchronously.
+Because of SQLite limitations, this might fail with a `SQLITE_BUSY` when
+processing several users at once.
+
+Because of that, in order to purge old pictures, you need to run the following
+after the sync:
+```ruby
+ActiveStorage::Blob.unattached.each(&:purge)
+```
+
+This is a temporary workaround that will not be necessary after a migration to a 
+more performant database like PostgreSQL.

@@ -4,6 +4,8 @@ class User < ApplicationRecord
   has_many :contestants, dependent: :destroy
   has_many :contests, through: :contestants
 
+  has_one_attached :photo
+
   validates :email, :name, presence: true
   validates :score, numericality: { greater_than_or_equal_to: 0 }
   validate :email_allowed, if: -> { email.present? }
