@@ -5,7 +5,7 @@
     <div class="font-semibold w-6"><%= index + 1 %></div>
     <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
       <% if user.photo.attached? %>
-        <%= image_tag user.photo, class: "w-full h-full object-cover" %>
+        <%= image_tag user.photo.representation(resize_to_limit: [40, 40]), class: "w-full h-full object-cover" %>
       <% else %>
         <span class="font-medium text-gray-600"><%= user.name.split.map(&:first).join %></span>
       <% end %>
