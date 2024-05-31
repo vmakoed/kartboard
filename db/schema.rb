@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_02_202256) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_202403) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -54,7 +54,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_202256) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "created_by_id", null: false
+    t.integer "game_id", null: false
     t.index ["created_by_id"], name: "index_contests_on_created_by_id"
+    t.index ["game_id"], name: "index_contests_on_game_id"
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.string "title", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "score_logs", force: :cascade do |t|
@@ -84,6 +95,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_02_202256) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "contestants", "contests"
   add_foreign_key "contestants", "users"
+  add_foreign_key "contests", "games"
   add_foreign_key "contests", "users", column: "created_by_id"
   add_foreign_key "score_logs", "contestants"
 end
