@@ -16,7 +16,10 @@ class ContestsController < ApplicationController
 
   def create
     @contest = Contests::Build.call(
-      contest_params: contest_params.merge(created_by: current_user)
+      contest_params: contest_params.merge(
+        game: Game.first, # TODO: remove after adding game selection
+        created_by: current_user
+      )
     )
 
     if @contest.save

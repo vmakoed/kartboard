@@ -33,7 +33,10 @@ class ContestTest < ActiveSupport::TestCase
   end
 
   test 'validates contestants size within range' do
-    @contest = Contest.new(created_by: users(:alice))
+    @contest = Contest.new(
+      created_by: users(:alice),
+      game: games(:kart_game)
+    )
 
     @contest.contestants.build(place: 1, user: users(:alice))
     @contest.contestants.build(place: 2, user: users(:bob))

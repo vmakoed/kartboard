@@ -1,4 +1,5 @@
 bob_alice_race:
+  game: kart_game
   created_at: <%= Time.parse('2022-01-01 00:01:00') %>
   updated_at: <%= Time.parse('2022-01-01 00:01:00') %>
   created_by: alice

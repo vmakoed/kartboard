@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-RolActiveRecord::Schema[7.1].define(version: 2024_05_31_202403) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_31_202403) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -57,9 +57,6 @@ RolActiveRecord::Schema[7.1].define(version: 2024_05_31_202403) do
     t.integer "game_id", null: false
     t.index ["created_by_id"], name: "index_contests_on_created_by_id"
     t.index ["game_id"], name: "index_contests_on_game_id"
-  end
-
-  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "games", force: :cascade do |t|
