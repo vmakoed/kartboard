@@ -1,15 +1,21 @@
 alice_score_log:
   contestant: alice_contestant
   previous_score: 1000
-  new_score: 1100
-  score_difference: 100
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  new_score: 1016
+  score_difference: 16
+  previous_position: 1
+  new_position: 1
+  position_difference: 0
+  created_at: <%= Time.parse('2022-01-01 00:01:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:01:00') %>
 
 bob_score_log:
   contestant: bob_contestant
   previous_score: 1200
-  new_score: 1150
-  score_difference: -50
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  new_score: 984
+  score_difference: -16
+  previous_position: 2
+  new_position: 2
+  position_difference: 0
+  created_at: <%= Time.parse('2022-01-01 00:01:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:01:00') %>

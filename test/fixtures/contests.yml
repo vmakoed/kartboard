@@ -1,4 +1,4 @@
-weekly_race:
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+bob_alice_race:
+  created_at: <%= Time.parse('2022-01-01 00:01:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:01:00') %>
   created_by: alice

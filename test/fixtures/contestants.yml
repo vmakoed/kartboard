@@ -1,13 +1,13 @@
 alice_contestant:
-  contest: weekly_race
+  contest: bob_alice_race
   user: alice
   place: 1
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  created_at: <%= Time.parse('2022-01-01 00:01:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:01:00') %>
 
 bob_contestant:
-  contest: weekly_race
+  contest: bob_alice_race
   user: bob
   place: 2
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  created_at: <%= Time.parse('2022-01-01 00:01:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:01:00') %>

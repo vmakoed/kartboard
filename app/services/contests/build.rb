@@ -15,6 +15,7 @@ module Contests
 
     def call
       build_score_logs
+      calculate_previous_user_positions
       calculate_score_differences
       assign_score_attributes
       calculate_new_positions
@@ -25,10 +26,26 @@ module Contests
 
     private
 
-    attr_reader :contest_params, :score_differences, :new_user_positions
+    attr_reader :contest_params, :previous_positions, :score_differences,
+                :new_user_positions
 
     def build_score_logs
       contest.contestants.each(&:build_score_log)
+    end
+
+    def calculate_previous_user_positions
+      all_contestants = User.with_contestants
+      current_contestants = User.where(id: user_ids)
+
+      @previous_positions = User
+        .where(id: all_contestants.select(:id))
+        .or(User.where(id: current_contestants.select(:id)))
+        .order(score: :desc)
+        .pluck(:id)
+        .each_with_index
+        .to_h
+        .slice(*user_ids)
+        .transform_values { _1 + 1 }
     end
 
     def calculate_score_differences
@@ -79,7 +96,7 @@ module Contests
 
     def assign_position_attributes
       contest.contestants.each do |contestant|
-        previous_position = previous_user_positions[contestant.user_id]
+        previous_position = previous_positions[contestant.user_id]
         new_position = new_user_positions[contestant.user_id]
         contestant.score_log.assign_attributes(
           previous_position: previous_position,
@@ -118,21 +135,6 @@ module Contests
       else
         0.0
       end
-    end
-
-    def previous_user_positions
-      all_contestants = User.with_contestants
-      current_contestants = User.where(id: user_ids)
-
-      @previous_positions ||= User
-        .where(id: all_contestants.select(:id))
-        .or(User.where(id: current_contestants.select(:id)))
-        .order(score: :desc)
-        .pluck(:id)
-        .each_with_index
-        .to_h
-        .slice(*user_ids)
-        .transform_values { _1 + 1 }
     end
   end
 end

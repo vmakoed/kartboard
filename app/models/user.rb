@@ -2,6 +2,7 @@ class User < ApplicationRecord
   DEFAULT_SCORE = 1000
 
   has_many :contestants, dependent: :destroy
+  has_many :score_logs, through: :contestants
   has_many :contests, through: :contestants
 
   has_one_attached :photo

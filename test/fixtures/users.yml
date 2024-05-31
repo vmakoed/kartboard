@@ -3,42 +3,42 @@ alice:
   name: Alice
   provider: google_oauth2
   uid: "726391048163025789123"
-  score: 1000
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  score: 1016
+  created_at: <%= Time.parse('2022-01-01 00:00:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:00:00') %>
 
 bob:
   email: bob@google.com
   name: Bob
   provider: google_oauth2
   uid: "982014376543210987654"
-  score: 1030
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  score: 984
+  created_at: <%= Time.parse('2022-01-01 00:00:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:00:00') %>
 
 charlie:
   email: bob@google.com
   name: Charlie
   provider: google_oauth2
   uid: "104546065561980871263"
-  score: 800
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  score: 1000
+  created_at: <%= Time.parse('2022-01-01 00:00:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:00:00') %>
 
 dave:
   email: dave@google.com
   name: Dave
   provider: google_oauth2
   uid: "783675733396313923267"
-  score: 1100
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  score: 1000
+  created_at: <%= Time.parse('2022-01-01 00:00:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:00:00') %>
 
 edward:
   email: edward@google.com
   name: Edward
   provider: google_oauth2
   uid: "606077867698100128097"
-  score: 900
-  created_at: <%= Time.now %>
-  updated_at: <%= Time.now %>
+  score: 1000
+  created_at: <%= Time.parse('2022-01-01 00:00:00') %>
+  updated_at: <%= Time.parse('2022-01-01 00:00:00') %>

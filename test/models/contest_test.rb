@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ContestTest < ActiveSupport::TestCase
   setup do
-    @contest = contests(:weekly_race)
+    @contest = contests(:bob_alice_race)
   end
 
   test 'should have many contestants' do
@@ -14,7 +14,7 @@ class ContestTest < ActiveSupport::TestCase
   end
 
   test 'should destroy contestants when contest is destroyed' do
-    contest = contests(:weekly_race)
+    contest = contests(:bob_alice_race)
 
     assert_difference('Contestant.count', -contest.contestants.count) do
       contest.destroy

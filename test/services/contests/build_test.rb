@@ -18,31 +18,32 @@ module Contests
 
     test 'correctly builds a contest with contestants' do
       contest = Contests::Build.call(contest_params: @contest_params)
+      users = contest.contestants.map(&:user)
 
       assert_equal 2, contest.contestants.size
-      assert_equal @user1, contest.contestants.first.user
-      assert_equal @user2, contest.contestants.second.user
+      assert_includes users, @user1
+      assert_includes users, @user2
     end
 
     test 'calculates score logs correctly' do
       contest = Contests::Build.call(contest_params: @contest_params)
 
-      assert_equal contest.contestants[0].user.score, 1017
-      assert_equal contest.contestants[1].user.score, 1013
+      assert_equal contest.contestants[0].user.score, 1031
+      assert_equal contest.contestants[1].user.score, 969
       assert_equal contest.contestants[0].place, 1
       assert_equal contest.contestants[1].place, 2
-      assert_equal contest.contestants[0].score_log.previous_score, 1000
-      assert_equal contest.contestants[0].score_log.new_score, 1017
-      assert_equal contest.contestants[0].score_log.score_difference, 17
-      assert_equal contest.contestants[1].score_log.previous_score, 1030
-      assert_equal contest.contestants[1].score_log.new_score, 1013
-      assert_equal contest.contestants[1].score_log.score_difference, -17
-      assert_equal contest.contestants[0].score_log.previous_position, 3
-      assert_equal contest.contestants[0].score_log.new_position, 2
-      assert_equal contest.contestants[0].score_log.position_difference, 1
+      assert_equal contest.contestants[0].score_log.previous_score, 1016
+      assert_equal contest.contestants[0].score_log.new_score, 1031
+      assert_equal contest.contestants[0].score_log.score_difference, 15
+      assert_equal contest.contestants[1].score_log.previous_score, 984
+      assert_equal contest.contestants[1].score_log.new_score, 969
+      assert_equal contest.contestants[1].score_log.score_difference, -15
+      assert_equal contest.contestants[0].score_log.previous_position, 1
+      assert_equal contest.contestants[0].score_log.new_position, 1
+      assert_equal contest.contestants[0].score_log.position_difference, 0
       assert_equal contest.contestants[1].score_log.previous_position, 2
-      assert_equal contest.contestants[1].score_log.new_position, 3
-      assert_equal contest.contestants[1].score_log.position_difference, -1
+      assert_equal contest.contestants[1].score_log.new_position, 2
+      assert_equal contest.contestants[1].score_log.position_difference, 0
     end
   end
 end

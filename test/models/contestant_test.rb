@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ContestantTest < ActiveSupport::TestCase
   setup do
-    @contest = contests(:weekly_race)
+    @contest = contests(:bob_alice_race)
     @user = users(:alice)
     @contestant = contestants(:alice_contestant)
   end
