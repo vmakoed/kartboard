@@ -1,6 +1,6 @@
 class Contest < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
-  belongs_to :game, optional: true
+  belongs_to :game
 
   has_many :contestants, dependent: :destroy
   has_many :users, through: :contestants
