@@ -10,4 +10,6 @@ class Contestant < ApplicationRecord
 
   validates :user, uniqueness: { scope: :contest }
   validates :place, inclusion: { in: PLACES }
+
+  scope :for_game, ->(game) { joins(:contest).where(contests: { game: game }) }
 end

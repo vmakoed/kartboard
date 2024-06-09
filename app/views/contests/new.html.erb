@@ -1,5 +1,5 @@
-<div class="flex flex-col justify-center text-4xl font-extrabold tracking-[-0.04em] text-center h-50 py-8">
-  New race
+<div class="flex flex-col justify-center text-4xl font-extrabold tracking-[-0.04em] text-center h-50 px-6 py-8">
+  New <%= @current_game.title %> Match
 </div>
 <%= form_with model: @contest, local: true, class: "flex flex-col flex-grow overflow-y-auto" do |form| %>
   <div class="flex flex-col flex-grow items-center divide-y divide-gray-200 overflow-y-auto mb-8">
@@ -46,6 +46,6 @@
   </div>
   <div class="flex flex-col flex-grow justify-end px-6 pb-8 space-y-4">
     <%= form.submit class: "btn-primary w-full sm:w-48 sm:mx-auto" %>
-    <%= link_to "Back to leaderboard", root_path, class: "btn-secondary w-full sm:w-48 sm:mx-auto" %>
+    <%= link_to "Back to rankings", root_path, class: "btn-secondary w-full sm:w-48 sm:mx-auto" %>
   </div>
 <% end %>

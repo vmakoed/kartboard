@@ -23,6 +23,12 @@ class User < ApplicationRecord
     end
   end
 
+  def last_played_game
+    return nil unless contestants.exists?
+
+    contestants.last.contest.game
+  end
+
   private
 
   def email_allowed

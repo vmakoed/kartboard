@@ -1,6 +1,7 @@
 class ContestsController < ApplicationController
   def index
     @contests = Contest
+      .for_game(@current_game)
       .order(created_at: :desc)
       .limit(25)
       .includes(contestants: [:user, :score_log])
@@ -17,7 +18,7 @@ class ContestsController < ApplicationController
   def create
     @contest = Contests::Build.call(
       contest_params: contest_params.merge(
-        game: Game.first, # TODO: remove after adding game selection
+        game: @current_game,
         created_by: current_user
       )
     )
@@ -58,6 +59,8 @@ class ContestsController < ApplicationController
       @contest.contestants.build(place: place)
     end
 
-    @contest.contestants = @contest.contestants.sort_by { |contestant| [contestant.place, contestant.id || 0] }
+    @contest.contestants = @contest.contestants.sort_by do |contestant|
+      [contestant.place, contestant.id || 0]
+    end
   end
 end

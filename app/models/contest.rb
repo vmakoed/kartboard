@@ -12,6 +12,8 @@ class Contest < ApplicationRecord
   validate :contestants_size_within_range
   validate :unique_contestants_by_user
 
+  scope :for_game, ->(game) { where(game: game) }
+
   private
 
   def places_within_sequence

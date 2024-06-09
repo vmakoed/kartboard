@@ -1,5 +1,9 @@
 class BoardsController < ApplicationController
   def show
-    @users = User.with_contestants.order(score: :desc)
+    puts @current_game
+    @users = User
+               .with_contestants
+               .merge(Contestant.for_game(@current_game))
+               .order(score: :desc)
   end
 end

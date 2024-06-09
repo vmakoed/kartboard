@@ -59,6 +59,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_31_202403) do
     t.index ["game_id"], name: "index_contests_on_game_id"
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "title", null: false
     t.datetime "created_at", null: false
