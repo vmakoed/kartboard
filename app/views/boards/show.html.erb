@@ -9,7 +9,7 @@
           <% if player.user == current_user %>
             <%= render partial: "player_item",
                        locals: {
-                         player: player.user,
+                         user: player.user,
                          score: player.score,
                          index: index,
                          background_class: "bg-slate-200" }
