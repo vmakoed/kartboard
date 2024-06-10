@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_game
-     Game.first&.id
+     Game.first
   end
 
   def assign_to_session(game)
