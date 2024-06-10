@@ -1,22 +1,24 @@
-<% if @users.present? %>
+<% if @players.present? %>
   <div class="flex flex-col justify-center text-4xl font-extrabold tracking-[-0.04em] text-center h-50 px-6 py-8">
     <%= @current_game.title %> Rankings
   </div>
   <div class="flex flex-col flex-grow overflow-y-auto mb-8">
     <div class="overflow-y-auto">
       <ul role="list" class="divide-y divide-gray-200">
-        <% @users.each_with_index do |user, index| %>
-          <% if user == current_user %>
-            <%= render partial: "user_item",
+        <% @players.each_with_index do |player, index| %>
+          <% if player.user == current_user %>
+            <%= render partial: "player_item",
                        locals: {
-                         user: user,
+                         player: player.user,
+                         score: player.score,
                          index: index,
                          background_class: "bg-slate-200" }
             %>
           <% else %>
-            <%= render partial: "user_item",
+            <%= render partial: "player_item",
                        locals: {
-                         user: user,
+                         user: player.user,
+                         score: player.score,
                          index: index
                        }
             %>

@@ -4,8 +4,8 @@
   <div class="flex flex-grow gap-4 items-center">
     <div class="font-semibold w-6"><%= contestant.place %></div>
     <div class="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-gray-100 rounded-full">
-      <% if contestant.user.photo.attached? %>
-        <%= image_tag contestant.user.photo.representation(resize_to_limit: [40, 40]), class: "w-full h-full object-cover" %>
+      <% if contestant.player.user.photo.attached? %>
+        <%= image_tag contestant.player.user.photo.representation(resize_to_limit: [40, 40]), class: "w-full h-full object-cover" %>
       <% else %>
         <span class="font-medium text-gray-600"><%= contestant.initials %></span>
       <% end %>

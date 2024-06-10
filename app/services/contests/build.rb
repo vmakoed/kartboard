@@ -34,14 +34,17 @@ module Contests
     end
 
     def calculate_previous_user_positions
-      all_contestants = User.with_contestants
-      current_contestants = User.where(id: user_ids)
+      current_players = contest.contestants.map(&:player)
+      other_players = contest_params[:game]
+        .players
+        .where
+        .not(id: current_players.pluck(:id).compact)
 
-      @previous_positions = User
-        .where(id: all_contestants.select(:id))
-        .or(User.where(id: current_contestants.select(:id)))
-        .order(score: :desc)
-        .pluck(:id)
+
+      @previous_positions = (current_players + other_players)
+        .sort_by(&:score)
+        .reverse
+        .pluck(:user_id)
         .each_with_index
         .to_h
         .slice(*user_ids)
@@ -58,9 +61,10 @@ module Contests
       end
     end
 
+
     def assign_score_attributes
       score_differences.each do |contestant, score_difference|
-        previous_score = contestant.user.score
+        previous_score = contestant.player.score
         new_score = previous_score + score_difference
 
         contestant.score_log.assign_attributes(
@@ -69,20 +73,19 @@ module Contests
           score_difference: score_difference
         )
 
-        contestant.assign_attributes(user_attributes: { score: new_score })
+        contestant.player.score = new_score
       end
     end
 
     def calculate_new_positions
-      scores = User
-        .with_contestants
-        .order(score: :desc)
-        .pluck(:id, :score)
+      scores = Player
+        .where(game_id: contest.game_id)
+        .pluck(:user_id, :score)
         .to_h
-        .tap { _1.default = User::DEFAULT_SCORE }
+        .tap { _1.default = Player::DEFAULT_SCORE }
 
       contest.contestants.each do |contestant|
-        scores[contestant.user_id] += score_differences[contestant]
+        scores[contestant.player.user_id] += score_differences[contestant]
       end
 
       scores
@@ -96,8 +99,8 @@ module Contests
 
     def assign_position_attributes
       contest.contestants.each do |contestant|
-        previous_position = previous_positions[contestant.user_id]
-        new_position = new_user_positions[contestant.user_id]
+        previous_position = previous_positions[contestant.player.user_id]
+        new_position = new_user_positions[contestant.player.user_id]
         contestant.score_log.assign_attributes(
           previous_position: previous_position,
           new_position: new_position,
@@ -107,20 +110,58 @@ module Contests
     end
 
     def user_ids
-      @user_ids ||= contest.contestants.map(&:user_id)
+      @user_ids ||= contest.contestants.map { _1.player.user_id }
     end
 
     def contest
-      @contest ||= Contest.new(contest_params)
+      @contest ||= build_contest
+    end
+
+    def build_contest
+      Contest
+        .new(contest_params.slice(:game, :created_by))
+        .tap(&method(:build_contestants))
+    end
+
+    def build_contestants(contest_object)
+      contest_params[:contestants_attributes]
+        .select { |_, attributes| attributes[:user_id].present? }
+        .values
+        .each do |attributes|
+          contest_object
+            .contestants
+            .build(attributes.slice(:place))
+            .then {
+              assign_player(
+                contestant: _1,
+                user_id: attributes[:user_id]
+              )
+            }
+      end
+    end
+
+    def assign_player(contestant:, user_id:)
+      contestant.player = Player.find_or_initialize_by(
+        game: contest_params[:game],
+        user_id: user_id
+      )
     end
 
     # TODO: review algorithm, extract to a separate service
-    def calculate_matchup(player, opponent)
-      expected_score = calculate_expected_score(player.user.score, opponent.user.score)
-      actual_score = calculate_actual_score(player.place, opponent.place)
-      matchup_score_difference = (K_FACTOR * (actual_score - expected_score)).round
+    def calculate_matchup(contestant_player, contestant_opponent)
+      expected_score = calculate_expected_score(
+        contestant_player.player.score,
+        contestant_opponent.player.score
+      )
+      actual_score = calculate_actual_score(
+        contestant_player.place,
+        contestant_opponent.place
+      )
+      matchup_score_difference = (
+        K_FACTOR * (actual_score - expected_score)
+      ).round
 
-      score_differences[player] += matchup_score_difference
+      score_differences[contestant_player] += matchup_score_difference
     end
 
     def calculate_expected_score(player_score, opponent_score)

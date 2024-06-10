@@ -3,6 +3,7 @@ class Contest < ApplicationRecord
   belongs_to :game
 
   has_many :contestants, dependent: :destroy
+  has_many :players, through: :contestants
   has_many :users, through: :contestants
 
   accepts_nested_attributes_for :contestants,
@@ -46,7 +47,12 @@ class Contest < ApplicationRecord
   end
 
   def unique_contestants_by_user
-    return if contestants.map(&:user_id).uniq.size == contestants.size
+    return if contestants # players association not working for newly created contest
+      .map(&:player)
+      .map(&:user_id)
+      .uniq
+      .size
+      .==(contestants.size)
 
     errors.add(:base, "A single user cannot participate more than once")
   end

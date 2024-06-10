@@ -31,7 +31,7 @@
                                               User.select(:id, :name).order(:name),
                                               :id,
                                               :name,
-                                              { include_blank: "Select contestant" },
+                                              { include_blank: "Select a player" },
                                               { class: "w-[12.5rem] mt-2 mr-2 block rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600" }
         %> finished
         <%= contestant_form.collection_select :place,

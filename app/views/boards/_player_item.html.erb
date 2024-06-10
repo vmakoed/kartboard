@@ -1,4 +1,4 @@
-<%# locals: (user:, index:, background_class: nil) %>
+<%# locals: (user:, score:, index:, background_class: nil) %>
 
 <li class="flex items-center px-6 py-4 text-lg gap-4 <%= background_class %>">
   <div class="flex flex-grow items-center gap-4">
@@ -12,5 +12,5 @@
     </div>
     <div class="font-semibold w-[calc(100vw-15rem)] sm:w-52 whitespace-nowrap overflow-hidden truncate"><%= user.name %></div>
   </div>
-  <div class="w-20 text-right"><%= user.score %> pts</div>
+  <div class="w-20 text-right"><%= score %> pts</div>
 </li>

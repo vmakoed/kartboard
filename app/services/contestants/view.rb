@@ -1,6 +1,7 @@
 module Contestants
   class View < SimpleDelegator
     delegate :previous_position, :new_position, to: :score_log
+    delegate :user, to: :player
 
     def initials
       user.name.split.map(&:first).join
