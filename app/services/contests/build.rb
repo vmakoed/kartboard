@@ -73,7 +73,7 @@ module Contests
           score_difference: score_difference
         )
 
-        contestant.player.score = new_score
+        contestant.player.score = new_score # check if validation would work (instead of assign_attributes)
       end
     end
 
