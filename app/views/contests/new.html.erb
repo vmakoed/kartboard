@@ -1,5 +1,5 @@
 <div class="flex flex-col justify-center text-4xl font-extrabold tracking-[-0.04em] text-center h-50 px-6 py-8">
-  New <%= @current_game.title %> Match
+  <%= @current_game.title %> Match
 </div>
 <%= form_with model: @contest, local: true, class: "flex flex-col flex-grow overflow-y-auto" do |form| %>
   <div class="flex flex-col flex-grow items-center divide-y divide-gray-200 overflow-y-auto mb-8">
