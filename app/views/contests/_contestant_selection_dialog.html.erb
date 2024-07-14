@@ -1,7 +1,11 @@
-<dialog id="contact_details_modal" class="w-[calc(100%-3rem)] h-[calc(100dvh-3rem)] m-6 rounded-lg backdrop:bg-gray-500 backdrop:bg-opacity-75">
+<dialog
+  id="users_modal"
+  class="w-[calc(100%-3rem)] h-[calc(100dvh-3rem)] m-6 rounded-lg backdrop:bg-gray-500 backdrop:bg-opacity-75"
+  data-user-select-target="dialog"
+>
   <div class="flex flex-col h-full overflow-y-auto">
     <header class="flex">
-      <div class="absolute right-0 h-16 flex items-center pr-3">
+      <div class="absolute right-0 h-12 flex items-center pr-3">
         <form method="dialog" class="flex">
           <button class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
             <svg class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -10,17 +14,18 @@
           </button>
         </form>
       </div>
-      <div class="flex items-center text-lg font-bold w-full h-16">
+      <div class="flex items-center text-md font-bold w-full h-12">
         <div class="mx-auto">
           Add player
         </div>
       </div>
     </header>
 
-    <div class="flex flex-col flex-grow overflow-y-auto mb-8">
-      <div class="overflow-y-auto">
+    <div class="flex flex-col flex-grow overflow-y-auto mb-4">
+      <div class="overflow-y-auto divide-y divide-gray-200">
+        <div class="text-xl font-bold px-3 py-4">Suggested users</div>
         <ul role="list">
-          <% User.select(:id, :name).order(:name).each do |user| %>
+          <% @game.suggested_players.each do |user| %>
             <li class="flex items-center px-3 py-2 text-md gap-4">
               <div class="flex flex-grow items-center gap-2">
                 <div class="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
@@ -31,7 +36,29 @@
                   type="button"
                   data-action="click->user-select#addUser"
                   data-user-id="<%= user.id %>"
-                  data-user-name="<%= user.name %>"
+                  class="rounded-lg bg-slate-900 p-1.5 text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-800"
+                >
+                  <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                  </svg>
+                </button>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <div class="text-xl font-bold px-3 py-4">All users</div>
+        <ul role="list">
+          <% @game.all_players.each do |user| %>
+            <li class="flex items-center px-3 py-2 text-md gap-4">
+              <div class="flex flex-grow items-center gap-2">
+                <div class="relative inline-flex items-center justify-center w-8 h-8 overflow-hidden bg-gray-100 rounded-full">
+                  <span class="font-medium text-gray-600"><%= user.name.split.map(&:first).join %></span>
+                </div>
+                <div class="w-[calc(100vw-9.5rem)] sm:w-74 whitespace-nowrap overflow-hidden truncate"><%= user.name %></div>
+                <button
+                  type="button"
+                  data-action="click->user-select#addUser"
+                  data-user-id="<%= user.id %>"
                   class="rounded-lg bg-slate-900 p-1.5 text-white shadow-sm hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-800"
                 >
                   <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

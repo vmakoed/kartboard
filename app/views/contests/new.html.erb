@@ -1,18 +1,7 @@
-<div data-controller="user-select">
+<div data-controller="user-select" class="flex flex-col h-full">
   <div class="flex flex-col justify-center text-4xl font-extrabold tracking-[-0.04em] text-center h-50 px-6 py-8">
-    <%= @current_game.title %> Match
+    <%= @game.title %> Match
   </div>
-
-  <div class="w-full px-6 pb-8">
-    <button
-      class="btn-primary w-full sm:w-48 sm:mx-auto"
-      data-controller="modal"
-      data-modal-dialog-param="contact_details_modal">
-      Add player
-    </button>
-  </div>
-
-  <%= render partial: "contestant_selection_dialog" %>
 
   <%= form_with model: @contest, local: true, class: "flex flex-col flex-grow overflow-y-auto" do |form| %>
     <div class="flex flex-col flex-grow items-center divide-y divide-gray-200 overflow-y-auto mb-8">
@@ -39,13 +28,16 @@
       <% end %>
 
       <%= form.fields_for :contestants do |contestant_form| %>
-        <div class="flex items-baseline justify-center px-6 py-4 w-full">
+        <div class="flex items-baseline justify-center px-6 py-4 w-full hidden" hidden data-user-select-target="contestant">
           <%= contestant_form.collection_select :user_id,
-                                                User.select(:id, :name).order(:name),
+                                                @game.all_players,
                                                 :id,
                                                 :name,
                                                 { include_blank: "Select a player" },
-                                                { class: "w-[12.5rem] mt-2 mr-2 block rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600" }
+                                                {
+                                                  class: "w-[12.5rem] mt-2 mr-2 block rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600",
+                                                  data: { "user-select-target": "user" }
+                                                }
           %> finished
           <%= contestant_form.collection_select :place,
                                                 Contestant::PLACES,
@@ -56,10 +48,25 @@
           %>
         </div>
       <% end %>
+
+      <div class="w-full px-6 pb-8">
+        <button
+          type="button"
+          class="btn-primary w-full mt-4 sm:w-48 sm:mx-auto"
+          data-controller="modal"
+          data-modal-dialog-param="users_modal"
+          data-user-select-target="addPlayerButton"
+        >
+          Add player
+        </button>
+      </div>
     </div>
+
     <div class="flex flex-col flex-grow justify-end px-6 pb-8 space-y-4">
       <%= form.submit class: "btn-primary w-full sm:w-48 sm:mx-auto" %>
       <%= link_to "Back to rankings", root_path, class: "btn-secondary w-full sm:w-48 sm:mx-auto" %>
     </div>
   <% end %>
+
+  <%= render partial: "contestant_selection_dialog" %>
 </div>

@@ -9,6 +9,7 @@ class ContestsController < ApplicationController
   end
   def new
     @contest = Contest.new
+    @game = Games::View.new(@current_game)
 
     Contestant::PLACES.each do |place|
       @contest.contestants.build(place: place)
@@ -26,6 +27,7 @@ class ContestsController < ApplicationController
     if @contest.save
       redirect_to contest_path(@contest)
     else
+      @game = Games::View.new(@current_game)
       build_contestants
 
       render :new, status: :unprocessable_entity
